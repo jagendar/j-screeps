@@ -1,6 +1,7 @@
 export function run(creep : Creep)
 {
-    var targetRoom = <string>creep.memory.targetRoom;
+    //var targetRoom = <string>creep.memory.targetRoom;
+    var targetRoom = "E40S19";
     if(!targetRoom)
     {
         //just look around this room I guess, since you're listless as fuck.
@@ -21,23 +22,9 @@ export function run(creep : Creep)
 
 function pathToRoom(creep : Creep, targetRoom : string)
 {
-    var path = creep.room.findExitTo(targetRoom);
-    if(path == ERR_NO_PATH)
-    {
-        console.log("unable to reach target room: " + targetRoom);
-        fightLocally(creep);
-        return;
-    }
-    if(path == ERR_INVALID_ARGS)
-    {
-        console.log("Target room does not exist!");
-        targetRoom = undefined;
-        fightLocally(creep);
-        return;
-    }
-
-    var exit : any = creep.pos.findClosestByRange(<number>path);
-    creep.moveTo(exit);
+    var roomPos = new RoomPosition(25, 25, targetRoom);
+    
+    creep.moveTo(roomPos);
     //TODO: should cache this location.
 }
 

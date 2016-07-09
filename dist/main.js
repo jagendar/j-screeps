@@ -148,10 +148,10 @@ module.exports =
 	        creep.memory.building = true;
 	    }
 	    if (creep.memory.building) {
-	        var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-	        if (targets.length) {
-	            if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
-	                creep.moveTo(targets[0]);
+	        var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
+	        if (target) {
+	            if (creep.build(target) == ERR_NOT_IN_RANGE) {
+	                creep.moveTo(target);
 	            }
 	        }
 	        else {
@@ -315,7 +315,8 @@ module.exports =
 
 	"use strict";
 	function run(creep) {
-	    var targetRoom = creep.memory.targetRoom;
+	    //var targetRoom = <string>creep.memory.targetRoom;
+	    var targetRoom = "E40S19";
 	    if (!targetRoom) {
 	        //just look around this room I guess, since you're listless as fuck.
 	        fightLocally(creep);
@@ -333,20 +334,8 @@ module.exports =
 	exports.run = run;
 	;
 	function pathToRoom(creep, targetRoom) {
-	    var path = creep.room.findExitTo(targetRoom);
-	    if (path == ERR_NO_PATH) {
-	        console.log("unable to reach target room: " + targetRoom);
-	        fightLocally(creep);
-	        return;
-	    }
-	    if (path == ERR_INVALID_ARGS) {
-	        console.log("Target room does not exist!");
-	        targetRoom = undefined;
-	        fightLocally(creep);
-	        return;
-	    }
-	    var exit = creep.pos.findClosestByRange(path);
-	    creep.moveTo(exit);
+	    var roomPos = new RoomPosition(25, 25, targetRoom);
+	    creep.moveTo(roomPos);
 	    //TODO: should cache this location.
 	}
 	function fightLocally(creep) {

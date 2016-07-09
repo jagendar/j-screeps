@@ -316,7 +316,7 @@ module.exports =
 	"use strict";
 	function run(creep) {
 	    var targetRoom = creep.memory.targetRoom;
-	    if (targetRoom == undefined || targetRoom == null) {
+	    if (!targetRoom) {
 	        //just look around this room I guess, since you're listless as fuck.
 	        fightLocally(creep);
 	        return;
@@ -400,6 +400,12 @@ module.exports =
 	    }
 	}
 	function doBuild(room) {
+	    if (!room.controller)
+	        return;
+	    if (!room.controller.owner)
+	        return;
+	    if (room.controller.owner.username != "Jagendar")
+	        return;
 	    if (room.controller && room.controller.level < 2) {
 	        console.log("Controller less than 2.");
 	        return;

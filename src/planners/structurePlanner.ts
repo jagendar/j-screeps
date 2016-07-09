@@ -24,6 +24,10 @@ function prepWalls(room : Room, terrainData : LookAtResultWithPos[])
 
 function doBuild(room : Room)
 {
+    if(!room.controller) return;
+    if(!room.controller.owner) return;
+    if(room.controller.owner.username != "Jagendar") return;
+
     if(room.controller && room.controller.level < 2)
     {
         console.log("Controller less than 2.");

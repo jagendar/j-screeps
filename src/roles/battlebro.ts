@@ -1,7 +1,7 @@
 export function run(creep : Creep)
 {
     var targetRoom = <string>creep.memory.targetRoom;
-    if(targetRoom == undefined || targetRoom == null)
+    if(!targetRoom)
     {
         //just look around this room I guess, since you're listless as fuck.
         fightLocally(creep);

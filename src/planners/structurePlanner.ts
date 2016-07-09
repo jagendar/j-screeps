@@ -24,8 +24,6 @@ function prepWalls(room : Room, terrainData : LookAtResultWithPos[])
 
 function doBuild(room : Room)
 {
-    if(!room.controller) return;
-    if(!room.controller.my) return;
 
     if(room.controller.level < 2)
     {
@@ -75,6 +73,9 @@ function doBuild(room : Room)
 
 export function buildDefense (room : Room)
 {
+    if(!room.controller) return;
+    if(!room.controller.my) return;
+    
     if(room.memory.spawnData == undefined)
     {
         room.memory.spawnData = [];

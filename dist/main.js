@@ -334,12 +334,27 @@ module.exports =
 	exports.run = run;
 	;
 	function pathToRoom(creep, targetRoom) {
-	    var roomPos = new RoomPosition(25, 25, targetRoom);
+	    var roomPos = new RoomPosition(40, 25, targetRoom);
 	    creep.moveTo(roomPos);
 	    //TODO: should cache this location.
 	}
 	function fightLocally(creep) {
+	    checkMoveIntoRoom(creep);
 	    creep.say("Got a chip on my shoulder!");
+	}
+	function checkMoveIntoRoom(creep) {
+	    if (creep.pos.x == 0) {
+	        creep.moveTo(1, creep.pos.y);
+	    }
+	    if (creep.pos.y == 0) {
+	        creep.moveTo(creep.pos.x, 1);
+	    }
+	    if (creep.pos.x == 49) {
+	        creep.moveTo(48, creep.pos.y);
+	    }
+	    if (creep.pos.y == 49) {
+	        creep.moveTo(creep.pos.x, 48);
+	    }
 	}
 
 
@@ -378,10 +393,6 @@ module.exports =
 	    }
 	}
 	function doBuild(room) {
-	    if (!room.controller)
-	        return;
-	    if (!room.controller.my)
-	        return;
 	    if (room.controller.level < 2) {
 	        console.log("Controller less than 2.");
 	        return;
@@ -417,6 +428,10 @@ module.exports =
 	    }
 	}
 	function buildDefense(room) {
+	    if (!room.controller)
+	        return;
+	    if (!room.controller.my)
+	        return;
 	    if (room.memory.spawnData == undefined) {
 	        room.memory.spawnData = [];
 	        console.log("Running defense prep code for room " + room);

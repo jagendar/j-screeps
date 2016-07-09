@@ -364,17 +364,6 @@ module.exports =
 	    if (closestHostile) {
 	        tower.attack(closestHostile);
 	    }
-	    /*
-	    if(tower.energy > tower.energyCapacity * .75)
-	    {
-	        //todo: more variable filtering - sort by
-	        var closestDamagedStructure = <Structure>tower.pos.findClosestByRange(FIND_STRUCTURES, {
-	            filter: (structure : Structure) => structure.hits < structure.hitsMax * .5
-	        });
-	        if(closestDamagedStructure) {
-	            tower.repair(closestDamagedStructure);
-	        }
-	    }*/
 	}
 	exports.run = run;
 
@@ -402,11 +391,9 @@ module.exports =
 	function doBuild(room) {
 	    if (!room.controller)
 	        return;
-	    if (!room.controller.owner)
+	    if (!room.controller.my)
 	        return;
-	    if (room.controller.owner.username != "Jagendar")
-	        return;
-	    if (room.controller && room.controller.level < 2) {
+	    if (room.controller.level < 2) {
 	        console.log("Controller less than 2.");
 	        return;
 	    }
@@ -512,6 +499,7 @@ module.exports =
 	                if (isNaN(defecit))
 	                    defecit = roleTarget.count;
 	                if (spawn.spawning == null && defecit > 0) {
+	                    //TODO: cache energy costs
 	                    var maxEnergy = spawn.room.energyCapacityAvailable;
 	                    var requiredEnergy = 0;
 	                    var bestBody;

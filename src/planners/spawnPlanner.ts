@@ -75,9 +75,10 @@ export function run() : void
                 var defecit = roleTarget.count - unitCounts[roleTarget.role];
                 if(isNaN(defecit)) //none exist!
                     defecit = roleTarget.count;
-                
+                    
                 if(spawn.spawning == null && defecit > 0)
                 {
+                     //TODO: cache energy costs
                     var maxEnergy = spawn.room.energyCapacityAvailable;
                     var requiredEnergy = 0;
                     var bestBody : string[];

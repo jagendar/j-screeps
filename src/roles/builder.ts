@@ -1,4 +1,6 @@
-import * as Repair from "./repair";
+import * as GatherEnergy from "../behaviours/gatherEnergy";
+import * as BuildStructures from "../behaviours/buildStructures";
+import * as RepairStructures from "../behaviours/repairStructures";
 
 export function run(creep : Creep)
 {
@@ -9,22 +11,11 @@ export function run(creep : Creep)
         creep.memory.building = true;
     }
 
-    if(creep.memory.building) {
-        var target = <ConstructionSite>creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
-        if(target) {
-            if(creep.build(target) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(target);
-            }
-        }
-        else
-        {
-            Repair.run(creep);
-        }
+    if(creep.memory.building) 
+    {
+        BuildStructures.PerformConstruction(creep);
     }
     else {
-        var sources = <Source[]>creep.room.find(FIND_SOURCES);
-        if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-            creep.moveTo(sources[0]);
-        }
+        GatherEnergy.gatherFromSource(creep);
     }
 };

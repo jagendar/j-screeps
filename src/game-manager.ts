@@ -22,6 +22,13 @@ export namespace GameManager {
 
     export function loop() 
 	{
+		//TODO: update this to repopulate creeps?
+		for(var i in Memory.creeps) {
+			if(!Game.creeps[i]) {
+				delete Memory.creeps[i];
+			}
+		}
+		
 		for(var roomKey in Game.rooms)
 		{
 			StructurePlanner.buildDefense(Game.rooms[roomKey]);
@@ -36,12 +43,6 @@ export namespace GameManager {
 			}
 		}
 
-		//TODO: update this to repopulate creeps?
-		for(var i in Memory.creeps) {
-			if(!Game.creeps[i]) {
-				delete Memory.creeps[i];
-			}
-		}
 
 		for(var name in Game.creeps) {
 			var creep = Game.creeps[name];

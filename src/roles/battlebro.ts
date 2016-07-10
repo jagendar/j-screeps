@@ -23,7 +23,7 @@ export function run(creep : Creep)
 function pathToRoom(creep : Creep, targetRoom : string)
 {
     //TODO: is there a better way to do this?
-    var roomPos = new RoomPosition(40, 25, targetRoom);
+    var roomPos = new RoomPosition(4, 25, targetRoom);
     
     creep.moveTo(roomPos);
 }

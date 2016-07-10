@@ -4,7 +4,7 @@ var spawnAmountTargets =
     {role:'upgrader', count: 2, bodies: [[WORK, CARRY, MOVE], [WORK, WORK, CARRY, CARRY, MOVE], [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]] },
     {role:'builder', count: 2, bodies: [[WORK, CARRY, MOVE], [WORK, WORK, CARRY, CARRY, MOVE], [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]] },
     {role:'repair', count: 2, bodies: [[WORK, CARRY, MOVE], [WORK, WORK, CARRY, CARRY, MOVE], [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]] },
-    {role:'battlebro', count: 1, bodies: [[TOUGH, TOUGH, MOVE, ATTACK, ATTACK, ATTACK, MOVE, MOVE]]},
+ //   {role:'battlebro', count: 1, bodies: [[TOUGH, TOUGH, MOVE, ATTACK, ATTACK, ATTACK, MOVE, MOVE]]},
 ];
 
 function getUnitCounts(room : Room)
@@ -108,10 +108,10 @@ export function run() : void
                         unitCounts[roleTarget.role]++;
                         break; //go to next spawner.
                     }
-                    /*if(harvestCt < 2)
+                    else
                     {
-                        console.log("trying harvester spawn: " + spawn.createCreep([WORK, WORK, CARRY, CARRY, MOVE], "Harvester" + Math.random(), {role: 'harvester'}));
-                    }*/
+                        break; //don't build a later creep if he's cheaper, but we're at a defecit
+                    }
                 }
             }
         }

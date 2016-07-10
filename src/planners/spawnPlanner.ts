@@ -4,7 +4,7 @@ var spawnAmountTargets =
     {role:'upgrader', count: 2, bodies: [[WORK, CARRY, MOVE], [WORK, WORK, CARRY, CARRY, MOVE], [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]] },
     {role:'builder', count: 2, bodies: [[WORK, CARRY, MOVE], [WORK, WORK, CARRY, CARRY, MOVE], [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]] },
     {role:'repair', count: 2, bodies: [[WORK, CARRY, MOVE], [WORK, WORK, CARRY, CARRY, MOVE], [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE]] },
-  //  {role:'battlebro', count: 1, bodies: [[TOUGH, TOUGH, MOVE, ATTACK, ATTACK, MOVE]]},
+    {role:'battlebro', count: 1, bodies: [[TOUGH, TOUGH, MOVE, ATTACK, ATTACK, ATTACK, MOVE, MOVE]]},
 ];
 
 function getUnitCounts(room : Room)
@@ -75,7 +75,7 @@ export function run() : void
                 var defecit = roleTarget.count - unitCounts[roleTarget.role];
                 if(isNaN(defecit)) //none exist!
                     defecit = roleTarget.count;
-                    
+
                 if(spawn.spawning == null && defecit > 0)
                 {
                      //TODO: cache energy costs
@@ -101,9 +101,9 @@ export function run() : void
                     //console.log("Want to make: " + bestBody + " needs " + requiredEnergy + " have " + energy + " max: " + maxEnergy);
                     if(requiredEnergy <= energy && requiredEnergy > 0)
                     {
-                        var id = roleTarget.role + " " + getRandomID();
+                        var id = roleTarget.role + getRandomID();
                         var output = spawn.createCreep(bestBody, id, { role: roleTarget.role});
-                        console.log("Spawn creep attempt for ", id, " as ", roleTarget.role, "\n\tResult: ", output, "\n\t", body);
+                        console.log("Spawn creep attempt for ", id, " as ", roleTarget.role, "\n\tResult: ", output, "\n\t", body, "\n\t", requiredEnergy);
                         energy -= requiredEnergy;
                         unitCounts[roleTarget.role]++;
                         break; //go to next spawner.

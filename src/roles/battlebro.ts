@@ -36,7 +36,7 @@ function fightLocally(creep : Creep)
     {
         tryFight(creep, <Structure>Game.getObjectById(<string>creep.memory.fightTarget));
     }
-    
+    //todo: better prioritization than whatever's closest
     var buildings = creep.room.find(FIND_HOSTILE_STRUCTURES, {
             filter : (s : Structure) => s.structureType != STRUCTURE_ROAD && s.structureType != STRUCTURE_CONTROLLER
         });
